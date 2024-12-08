@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wikipedia Bingo</title>
+    <style>
+        .bingo-board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .cell {
+            border: 1px solid #333;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .marked {
+            background-color: #90EE90;
+        }
+        h1 {
+            text-align: center;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wikipedia Bingo</h1>
+    <div class="controls">
+        <button onclick="newBoard()">New Board</button>
+    </div>
+    <div class="bingo-board">
+        {% for title in titles %}
+        <div class="cell" onclick="toggleMark(this)">{{ title }}</div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function toggleMark(cell) {
+            cell.classList.toggle('marked');
+        }
+
+        function newBoard() {
+            fetch('/new-board')
+                .then(response => response.json())
+                .then(titles => {
+                    const cells = document.querySelectorAll('.cell');
+                    titles.forEach((title, index) => {
+                        cells[index].textContent = title;
+                        cells[index].classList.remove('marked');
+                    });
+                });
+        }
+    </script>
+</body>
+</html>
