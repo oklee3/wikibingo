@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/static/main.css">
+    <title>Wikipedia Bingo</title>
+</head>
+<body>
+    <div class="home-container">
+        <h1>Wikipedia Bingo</h1>
+        <div class="board-size-selection">
+            <button onclick="createBoard()" class="create-button">
+                Create 5x5 Board
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function createBoard() {
+            window.location.href = '/board';
+        }
+    </script>
+</body>
+</html> 

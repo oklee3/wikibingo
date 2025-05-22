@@ -1,7 +1,8 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, redirect, url_for
 import asyncio
 import aiohttp
 from urllib.parse import unquote
+import json
 
 app = Flask(__name__)
 
@@ -19,13 +20,17 @@ def get_pages_sync(n):
 
 @app.route('/')
 def index():
-    titles = get_pages_sync(25)
-    return render_template('home.html', titles=titles)
+    return render_template('index.html')
+
+@app.route('/board')
+def board():
+    pages = get_pages_sync(25)
+    return render_template('board.html', pages=pages)
 
 @app.route('/new-board')
 def new_board():
-    titles = get_pages_sync(25)
-    return jsonify(titles)
+    pages = get_pages_sync(25)
+    return jsonify(pages)
 
 if __name__ == '__main__':
     app.run(debug=True)
