@@ -18,8 +18,8 @@ function newBoard() {
         .then(response => response.json())
         .then(pages => {
             const cells = document.querySelectorAll('.cell');
-            pages.forEach((title, index) => {
-                cells[index].textContent = title;
+            pages.forEach((page, index) => {
+                cells[index].textContent = page.title;
                 cells[index].classList.remove('marked');
             });
         })

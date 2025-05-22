@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, redirect, url_for
+from flask import Flask, render_template, jsonify, redirect, url_for, request
 import asyncio
 import aiohttp
 from urllib.parse import unquote
@@ -9,7 +9,8 @@ app = Flask(__name__)
 async def get_wikipedia_page():
     async with aiohttp.ClientSession() as session:
         async with session.get("https://en.wikipedia.org/wiki/Special:Random", allow_redirects=True) as response:
-            return unquote(str(response.url).split("/")[-1].replace("_", " "))
+            title = unquote(str(response.url).split("/")[-1].replace("_", " "))
+            return {"title": title}
 
 async def get_random_wikipedia_pages(n):
     tasks = [get_wikipedia_page() for _ in range(n)]

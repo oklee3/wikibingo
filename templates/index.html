@@ -1,22 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/main.css">
     <title>Wikipedia Bingo</title>
 </head>
 <body>
     <div class="home-container">
-        <h1>Wikipedia Bingo</h1>
+        <header>
+            <h1>Wikipedia Bingo</h1>
+            <small>by oklee</small>
+        </header>
         <div class="board-size-selection">
-            <button onclick="createBoard()" class="create-button">
-                Create 5x5 Board
-            </button>
+            <button onclick="createBoard()" class="create-button" id="createButton">Create a Board</button>
         </div>
     </div>
 
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading new articles...</div>
+    </div>
+
     <script>
+        function showLoading() {
+            document.getElementById('loadingOverlay').classList.add('active');
+            document.getElementById('createButton').disabled = true;
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.remove('active');
+            document.getElementById('createButton').disabled = false;
+        }
+
         function createBoard() {
-            window.location.href = '/board';
+            showLoading();
+            fetch('/new-board')
+                .then(response => response.json())
+                .then(() => {
+                    window.location.href = '/board';
+                })
+                .catch(error => {
+                    console.error('Error creating board:', error);
+                    alert('Failed to create board. Please try again.');
+                    hideLoading();
+                });
         }
     </script>
 </body>
