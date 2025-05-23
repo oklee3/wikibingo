@@ -1,2 +1,3 @@
-# wikibingo
-race to check off squares
+# wikibingo -> wikiimpostor
+
+instead of checking off squares, players try to identify the ai generated article titles

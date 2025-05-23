@@ -10,7 +10,9 @@
     <div class="board-container">
         <div class="board-header">
             <h1>Wikipedia Impostor</h1>
-            <p class="game-description">Five of these Wikipedia articles are AI-generated. The rest are real. Can you spot which ones?</p>
+            <p class="game-description">Five of these Wikipedia articles are AI-generated. The rest are real. Try to find the real articles without clicking a fake.
+                (Red = AI)
+            </p>
             <div class="controls">
                 <a href="/" class="home-button">Home</a>
                 <button id="newBoardBtn" onclick="newBoard()">New Board</button>
@@ -22,7 +24,9 @@
         </div>
         <div class="bingo-board">
             {% for page in pages %}
-            <div class="cell" onclick="toggleMark(this)">{{ page.title }}</div>
+            <div class="cell {% if page.is_fake %}fake{% endif %}" 
+                 data-is-fake="{{ page.is_fake|lower }}"
+                 onclick="toggleMark(this)">{{ page.title }}</div>
             {% endfor %}
         </div>
     </div>

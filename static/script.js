@@ -19,8 +19,15 @@ function newBoard() {
         .then(pages => {
             const cells = document.querySelectorAll('.cell');
             pages.forEach((page, index) => {
-                cells[index].textContent = page.title;
-                cells[index].classList.remove('marked');
+                const cell = cells[index];
+                cell.textContent = page.title;
+                cell.classList.remove('marked');
+                if (page.is_fake) {
+                    cell.classList.add('fake');
+                } else {
+                    cell.classList.remove('fake');
+                }
+                cell.dataset.isFake = page.is_fake;
             });
         })
         .catch(error => {
