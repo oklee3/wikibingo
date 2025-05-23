@@ -7,8 +7,11 @@ import random
 import openai
 import os
 from groq import Groq
+from dotenv import load_dotenv
 
 app = Flask(__name__)
+
+load_dotenv()
 client = Groq(api_key = os.environ.get("GROQ_API_KEY"))
 
 def generate_fake_title_groq():
