@@ -15,9 +15,8 @@ def generate_fake_title_groq():
     response = client.chat.completions.create(
     messages=[
         {
-            "role": "user",
-            "content": "Generate a realistic-sounding Wikipedia article title about a fictional event, person, or place. Do not put any events that take place in the future, and avoid too detailed description."
-            "The title should closely resemble real Wikipedia article titles in tone and style. Avoid sounding fantastical or obviously fake. Limit 10 words, ideally less. Output only your title, nothing else."
+            "role": "system",
+            "content": "Generate one fake but realistic Wikipedia article title. It should sound plausible and fit naturally among real articles. Randomly choose if it's about a person, place, event, or concept. Keep it short and don't include any description — just the title. Never do something using the word 'of'"
         }
     ],
     model="gemma2-9b-it",
